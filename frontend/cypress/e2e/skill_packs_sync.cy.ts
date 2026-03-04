@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { setupCommonPageTestHooks } from "../support/testHooks";
+
 // Clerk/Next.js occasionally triggers a hydration mismatch on auth routes in CI.
 // This is non-deterministic UI noise for these tests; ignore it so assertions can proceed.
 Cypress.on("uncaught:exception", (err) => {
@@ -13,25 +15,7 @@ describe("Skill packs", () => {
   const apiBase = "**/api/v1";
   const email = Cypress.env("CLERK_TEST_EMAIL") || "jane+clerk_test@example.com";
 
-  const originalDefaultCommandTimeout = Cypress.config("defaultCommandTimeout");
-
-  beforeEach(() => {
-    Cypress.config("defaultCommandTimeout", 20_000);
-
-    cy.intercept("GET", "**/healthz", {
-      statusCode: 200,
-      body: { ok: true },
-    }).as("healthz");
-
-    cy.intercept("GET", `${apiBase}/organizations/me/member*`, {
-      statusCode: 200,
-      body: { organization_id: "org1", role: "owner" },
-    }).as("orgMeMember");
-  });
-
-  afterEach(() => {
-    Cypress.config("defaultCommandTimeout", originalDefaultCommandTimeout);
-  });
+  setupCommonPageTestHooks(apiBase);
 
   it("can sync a pack and surface warnings", () => {
     cy.intercept("GET", `${apiBase}/skills/packs*`, {

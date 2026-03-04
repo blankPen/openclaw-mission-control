@@ -1,18 +1,12 @@
 /// <reference types="cypress" />
 
+import { setupCommonPageTestHooks } from "../support/testHooks";
+
 describe("/boards", () => {
   const apiBase = "**/api/v1";
   const email = "local-auth-user@example.com";
 
-  const originalDefaultCommandTimeout = Cypress.config("defaultCommandTimeout");
-
-  beforeEach(() => {
-    Cypress.config("defaultCommandTimeout", 20_000);
-  });
-
-  afterEach(() => {
-    Cypress.config("defaultCommandTimeout", originalDefaultCommandTimeout);
-  });
+  setupCommonPageTestHooks(apiBase);
 
   it("auth negative: signed-out user is shown local auth login", () => {
     cy.visit("/boards");
