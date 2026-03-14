@@ -57,7 +57,7 @@ export function UserMenu({
         <button
           type="button"
           className={cn(
-            "group inline-flex h-9 items-center gap-2 rounded-[10px] bg-transparent px-1 py-1 transition",
+            "group inline-flex h-9 items-center gap-1 rounded-[10px] bg-transparent px-0.5 py-1 transition md:px-1 md:gap-2",
             "hover:bg-white/70",
             // Avoid the default browser focus outline (often bright blue) on click.
             // Keep a subtle, enterprise-looking focus ring for keyboard navigation.
@@ -87,7 +87,7 @@ export function UserMenu({
               avatarLabel
             )}
           </span>
-          <ChevronDown className="h-4 w-4 text-[color:var(--neutral-700,var(--text-quiet))] transition group-data-[state=open]:rotate-180" />
+          <ChevronDown className="hidden h-4 w-4 text-[color:var(--neutral-700,var(--text-quiet))] transition group-data-[state=open]:rotate-180 md:block" />
         </button>
       </PopoverTrigger>
       <PopoverContent

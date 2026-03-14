@@ -127,6 +127,64 @@ body {
   }
 }
 
+/* Mobile responsive utilities */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  body {
+    @apply overflow-x-hidden;
+    overscroll-behavior-x: none;
+  }
+
+  /* Touch-friendly tap targets */
+  button,
+  a,
+  [role="button"] {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Better touch scrolling for scrollable areas */
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Ensure inputs are touch-friendly */
+  input,
+  select,
+  textarea {
+    @apply text-base;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  /* Fix for tables on mobile */
+  table {
+    @apply block max-w-full overflow-x-auto;
+  }
+
+  /* Ensure images don't overflow */
+  img {
+    @apply max-w-full h-auto;
+  }
+}
+
 .landing-page {
   font-family: var(--font-body), sans-serif;
 }
