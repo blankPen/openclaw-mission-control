@@ -95,12 +95,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-app text-strong" data-sidebar={sidebarOpen ? "open" : "closed"}>
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-        <div className="flex items-center py-3">
-          <div className="flex items-center px-4 md:px-6 md:w-[260px]">
+        <div className="flex h-14 items-center px-2 md:h-16 md:px-4">
+          <div className="flex w-full items-center">
             {isSignedIn ? (
               <button
                 type="button"
-                className="mr-3 rounded-lg p-2 text-slate-600 hover:bg-slate-100 md:hidden"
+                className="mr-2 rounded-lg p-2 text-slate-600 hover:bg-slate-100 active:bg-slate-200 md:mr-3 md:hidden"
                 onClick={toggleSidebar}
                 aria-label="Toggle navigation"
               >
@@ -115,9 +115,13 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                 <OrgSwitcher />
               </div>
             </div>
+            {/* Mobile OrgSwitcher - always visible on mobile */}
+            <div className="md:hidden ml-2">
+              <OrgSwitcher />
+            </div>
           </SignedIn>
           <SignedIn>
-            <div className="ml-auto flex items-center gap-3 px-4 md:px-6">
+            <div className="ml-auto flex items-center gap-2 pr-2 md:gap-3 md:pr-4">
               <div className="hidden text-right lg:block">
                 <p className="text-sm font-semibold text-slate-900">
                   {displayName}
@@ -133,7 +137,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
       {/* Mobile sidebar overlay */}
       {sidebarOpen ? (
         <div
-          className="fixed inset-0 z-40 bg-black/30 md:hidden"
+          className="fixed inset-0 z-40 bg-black/40 md:hidden backdrop-blur-sm"
           onClick={toggleSidebar}
           aria-hidden="true"
           data-cy="sidebar-backdrop"

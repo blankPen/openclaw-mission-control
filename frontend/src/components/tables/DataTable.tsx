@@ -88,7 +88,7 @@ export function DataTable<TData>({
     (table.getVisibleLeafColumns().length || 1) + (hasRowActions ? 1 : 0);
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <table className={tableClassName}>
         <thead
           className={
