@@ -102,19 +102,20 @@ export function DashboardShell({ children }: { children: ReactNode }) {
             {isSignedIn ? (
               <button
                 type="button"
-                className="mr-3 rounded-lg p-2 text-slate-600 hover:bg-slate-100 md:hidden"
+                className="mr-2 rounded-lg p-2 text-slate-600 hover:bg-slate-100 active:bg-slate-200 md:hidden touch-manipulation"
                 onClick={toggleSidebar}
                 aria-label="Toggle navigation"
+                aria-expanded={sidebarOpen}
               >
-                {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             ) : null}
             <BrandMark />
           </div>
           <SignedIn>
             {/* 移动端使用更紧凑的 OrgSwitcher 样式 */}
-            <div className="flex flex-1 items-center md:block">
-              <div className="max-w-[140px] md:max-w-[220px]">
+            <div className="flex flex-1 items-center overflow-hidden md:block">
+              <div className="min-w-0 max-w-[120px] md:max-w-[220px]">
                 <OrgSwitcher />
               </div>
             </div>
