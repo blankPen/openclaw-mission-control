@@ -1,6 +1,44 @@
 import { gatewaysStatusApiV1GatewaysStatusGet } from "@/api/generated/gateways/gateways";
 
-export const DEFAULT_WORKSPACE_ROOT = "~/.openclaw";
+/**
+ * 检测当前 workspace 名称
+ * 从当前工作目录路径中提取，如 ~/.openclaw/workspace-be -> workspace-be
+ */
+function detectCurrentWorkspace(): string | null {
+  // 尝试从环境变量获取
+  if (process.env.NEXT_PUBLIC_WORKSPACE_NAME) {
+    return process.env.NEXT_PUBLIC_WORKSPACE_NAME;
+  }
+
+  // 尝试从当前工作目录路径解析
+  // 工作目录格式: /Users/admin/.openclaw/workspace-{name}
+  const cwd = typeof process !== "undefined" ? process.cwd() : "";
+  const match = cwd.match(/workspace-(\w+)$/);
+  if (match) {
+    return match[1];
+  }
+
+  return null;
+}
+
+/**
+ * 获取默认的 workspace root 路径
+ * 支持多 workspace 场景，根据当前 workspace 自动调整默认路径
+ */
+export function getDefaultWorkspaceRoot(): string {
+  const workspaceName = detectCurrentWorkspace();
+
+  if (workspaceName) {
+    // 如果检测到 workspace 名称，使用对应的 workspace 路径
+    return `~/.openclaw/${workspaceName}`;
+  }
+
+  // 默认使用 ~/.openclaw
+  return "~/.openclaw";
+}
+
+// 导出默认 workspace root（保持向后兼容）
+export const DEFAULT_WORKSPACE_ROOT = getDefaultWorkspaceRoot();
 
 export type GatewayCheckStatus = "idle" | "checking" | "success" | "error";
 

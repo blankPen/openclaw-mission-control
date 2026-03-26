@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // 将 workspace 名称传递给前端，用于区分不同 Agent 的 workspace
+  env: {
+    NEXT_PUBLIC_WORKSPACE_NAME: process.env.NEXT_PUBLIC_WORKSPACE_NAME || "",
+  },
 };
 
 export default nextConfig;
